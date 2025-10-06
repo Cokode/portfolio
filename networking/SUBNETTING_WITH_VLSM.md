@@ -4,7 +4,7 @@
 > **Date:** 2025-10-05  
 > **Author:** `Collins Chinedu Amalimeh`
 > **Tools Used:** `Cisco Packet Tracer`
-> **Difficulty Level:** `Beginner / **Intermediate** / Advanced`  
+> **Difficulty Level:** Beginner / `Intermediate` / Advanced  
 > **Status:** 🧭 In Progress
 <!-- ✅ Completed /  -->
 ---
