@@ -50,8 +50,26 @@ To efficiently subnet the network using VLSM, we must begin with the LAN that re
 |LAN    |Subnet with prefix  | Subnet Block Size  | Host requirement      | IP Range    |
 |-------|---------------------|--------------------|-----------------------|-------------|
 | LAN 2 |**192.168.5.0/25**   | 128                | `64`  + 2             | **192.168.5.0 - 192.168.5.127**   |
-| LAN 1 |**192.168.5.128/26**   | 64               | `45`  + 2             | **192.168.5.128 - 192.168.5.191**   |
-| LAN 3 |**192.168.5.192/27 or /28**  | 32         | `14`  + 2             | **192.168.5.192 - 192.168.223.127**   |
-| LAN 4 |**192.168.5.224/28**   | 16               | `9`   + 2             | **192.168.5.224 - 192.168.5.239**   |
-| P2P   |**192.168.5.240/30**   | 4                | `2`   + 2             | **192.168.5.240 - 192.168.5.243**   |
+| LAN 1 |**192.168.5.128/26** | 64                 | `45`  + 2             | **192.168.5.128 - 192.168.5.191**   |
+| LAN 3 |**192.168.5.192/27**   | 32                 | `14`  + 2           | **192.168.5.192 - 192.168.5.223**   |
+| LAN 4 |**192.168.5.224/28** | 16                 | `9`   + 2             | **192.168.5.224 - 192.168.5.239**   |
+| P2P   |**192.168.5.240/30** | 4                  | `2`   + 2             | **192.168.5.240 - 192.168.5.243**   |
 
+---
+### **Updated Topology with Subnet Allocations**
+![Network Topology](./images/img2.png)  
+**Figure 2.0** Updated network topology diagram showing the subnet assignment for each LAN
+---
+
+## Configuring The Router Interfaces
+In this section, we will configure the IP addresses for the router interfaces, beginning with R1 followed by R2. Each interface connected to a LAN or point-to-point link will be assigned its designated IP address based on the subnet plan.
+
+| Router Interface | IP address  | Subnet Mask    | 
+|------------------|-------------|----------------|
+|R1 G0/1   (LAN2)  |192.168.5.126|255.255.255.128 |
+|R1 G0/0   (LAN1)  |192.168.5.190|255.255.255.192|
+|R2 G0/0   (LAN3)  |192.168.5.222|255.255.255.224 |
+|R2 G0/1   (LAN4)  |192.168.5.238|255.255.255.240 |
+|R1 G0/0/0           |192.168.5.241|255.255.255.5.252 |
+|R2 G0/0/0           |192.168.5.242|255.255.255.5.252 |
+---
