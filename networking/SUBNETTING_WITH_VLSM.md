@@ -4,7 +4,7 @@
 > **Date:** 2025-10-05  
 > **Author:** `Collins Chinedu Amalimeh`
 > **Tools Used:** Cisco Packet Tracer
-> **Difficulty Level:** Beginner / **Intermediate** / Advanced  
+> **Difficulty Level:** `Beginner / **Intermediate** / Advanced`  
 > **Status:** 🧭 In Progress
 <!-- ✅ Completed /  -->
 ---
@@ -38,17 +38,17 @@ In this lab, I will use **Variable Length Subnet Masking (VLSM)** to allocate IP
 
 ---
 `Note!` 
-```
+
 Unlike Fixed Length Subnet Masking (FLSM), Variable Length Subnet Masking (VLSM) allows us to efficiently subnet a given IPv4 network—such as 192.168.5.0/24—by assigning different subnet sizes based on host requirements. While FLSM uses CIDR to segment a network into equal-sized subnets, it lacks the flexibility to tailor subnet sizes to actual host needs, often resulting in wasted IP addresses. In this lab, the topology includes four LANs with varying host sizes connected via routers. Applying a uniform /26 prefix would provide 62 usable IP addresses per subnet, which is more than sufficient for some LANs but leads to inefficient IP allocation and leaves no room for point-to-point connections. VLSM solves this by enabling precise subnet sizing and preserving IP space for future growth. 
-```
+
 ---
 
-### [ ] **Subnetting the `192.168.5.0/24` network** ###
+### **Subnetting the `192.168.5.0/24` network** ###
 To efficiently subnet the network using VLSM, we must begin with the LAN that requires the largest number of hosts and work down to the smallest. This ensures optimal IP address allocation and prevents fragmentation. It's crucial to avoid any overlap between subnets. When calculating the required number of IP addresses for each subnet, we must add 2 to the host count to account for the network and broadcast addresses
 
 #### 🧰 **Subnets**
-|LAN    | Subnet with prefix  | Subnet Block Size  |   Host requirement  | IP Range    |
-|-------|---------------------|--------------------|---------------------|-------------|
+|LAN    | Subnet with prefix  | Subnet Block Size  | Host requirement      | IP Range    |
+|-------|---------------------|--------------------|-----------------------|-------------|
 | LAN 2 |**192.168.5.0/25**   | 128                | `64`  + 2             | **192.168.5.0 - 192.168.5.127**   |
 | LAN 1 |**192.168.5.128/26**   | 64               | `45`  + 2             | **192.168.5.128 - 192.168.5.191**   |
 | LAN 3 |**192.168.5.192/27 or /28**  | 32         | `14`  + 2             | **192.168.5.192 - 192.168.223.127**   |
