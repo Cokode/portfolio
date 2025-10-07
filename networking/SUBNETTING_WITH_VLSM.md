@@ -5,8 +5,8 @@
 > **Author:** `Collins Chinedu Amalimeh`
 > **Tools Used:** `Cisco Packet Tracer`
 > **Difficulty Level:** Beginner / `Intermediate` / Advanced  
-> **Status:** 🧭 In Progress
-<!-- ✅ Completed /  -->
+> **Status:** ✅ Completed
+<!-- ✅ Completed 🧭 In Progress/  -->
 ---
 
 ## 📝 **Project Overview**
@@ -28,7 +28,7 @@ In this lab, I will use **Variable Length Subnet Masking (VLSM)** to allocate IP
 3. Step 3 — Configure Router interfaces with IP address
 4. Step 4 — Configure IP-address, NetMask and Default Gateway for endhosts in the LANs
 5. Step 5 — Configure Static Routes to make all the LAN reachable.
-6. Step 6 — Verify routing between LANs
+6. Step 6 — Verify routing is working between LANs
 
 ---
 
@@ -68,12 +68,12 @@ In this section, we will configure the IP addresses for the router interfaces, b
 
 | Router Interface | IP address  | Subnet Mask    | 
 |------------------|-------------|----------------|
-|R1 G0/1   (LAN2)  |192.168.5.126|255.255.255.128 |
-|R1 G0/0   (LAN1)  |192.168.5.190|255.255.255.192|
-|R2 G0/0   (LAN3)  |192.168.5.222|255.255.255.224 |
-|R2 G0/1   (LAN4)  |192.168.5.238|255.255.255.240 |
-|R1 G0/0/0           |192.168.5.241|255.255.255.5.252 |
-|R2 G0/0/0           |192.168.5.242|255.255.255.5.252 |
+|R1 G0/1   (LAN2)  |**192.168.5.126**|255.255.255.128 |
+|R1 G0/0   (LAN1)  |**192.168.5.190**|255.255.255.192|
+|R2 G0/0   (LAN3)  |**192.168.5.222**|255.255.255.224 |
+|R2 G0/1   (LAN4)  |**192.168.5.238**|255.255.255.240 |
+|R1 G0/0/0           |**192.168.5.241**|255.255.255.5.252 |
+|R2 G0/0/0           |**192.168.5.242**|255.255.255.5.252 |
 ---
 > configuring Router 1 / LAN2 interface with IP address
 ```bash
@@ -137,9 +137,9 @@ Subnet Mask
 ---
 
 ### **Step 5: Configure Static Routes to make all the LAN reachable.**
-By configuring static routes on the Routers we will be able to reach the other networks which are not directly connected on the same router. A route is a command/instruction on the routing-table that tells the router where to send packet destined to a remote network. 
+By configuring static routes on the routers, we enable communication with networks that are not directly connected to the same router. A route is an entry in the routing table that instructs the router where to forward packets destined for remote networks.
 
-First I will build the routing table showing connected routes and next-hops
+The table below lists the subnets directly connected to routers R1 and R2, along with the remote networks and their respective next-hop addresses.
 
 |Router| Destination | Next-Hop |
 |------|-------------|----------|
@@ -153,8 +153,128 @@ First I will build the routing table showing connected routes and next-hops
 |      | 192.168.5.224/28 |          |
 
 
+> #### Configuring Static route on R1
+```bash
+Router1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router1(config)#
+Router1(config)#
+Router1(config)#ip route
+Router1(config)#ip route 192.168.5.192 255.255.255.224 192.168.5.242
+Router1(config)#ip route 192.168.5.224 255.255.255.240 192.168.5.242
+```
+Displaying the route table to show configured route:
+```bash
+Router1#
+Router1#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
 
+Gateway of last resort is not set
 
+     192.168.5.0/24 is variably subnetted, 8 subnets, 5 masks
+C       192.168.5.0/25 is directly connected, GigabitEthernet0/1
+L       192.168.5.126/32 is directly connected, GigabitEthernet0/1
+C       192.168.5.128/26 is directly connected, GigabitEthernet0/0
+L       192.168.5.190/32 is directly connected, GigabitEthernet0/0
+S       192.168.5.192/27 [1/0] via 192.168.5.242
+S       192.168.5.224/28 [1/0] via 192.168.5.242
+C       192.168.5.240/30 is directly connected, GigabitEthernet0/0/0
+L       192.168.5.241/32 is directly connected, GigabitEthernet0/0/0
+
+```
+> Configuring Static routes on R2
+```bash
+Router2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router2(config)#
+Router2(config)#
+Router2(config)#ip route
+Router2(config)#ip route 192.168.5.0 255.255.255.128 192.168.5.241
+Router2(config)#ip route 192.168.5.128 255.255.255.192 192.168.5.241
+```
+Displaying the R2 route table to show configured route:
+```bash
+
+R2>
+R2>enab
+Password: 
+R2#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     192.168.5.0/24 is variably subnetted, 8 subnets, 5 masks
+S       192.168.5.0/24 [1/0] via 192.168.5.241
+S       192.168.5.128/26 [1/0] via 192.168.5.241
+C       192.168.5.192/27 is directly connected, GigabitEthernet0/0
+L       192.168.5.222/32 is directly connected, GigabitEthernet0/0
+C       192.168.5.224/28 is directly connected, GigabitEthernet0/1
+L       192.168.5.222/32 is directly connected, GigabitEthernet0/1
+C       192.168.5.240/30 is directly connected, GigabitEthernet0/0/0
+L       192.168.5.242/32 is directly connected, GigabitEthernet0/0/0
+```
+---
+
+### **Step 6: Verify routing is working between LANs**
+> From PC1 I will ping PC3 in the LAN 3.
 
 ```bash
-Router(config)#
+PC1:
+
+Cisco Packet Tracer PC Command Line 1.0
+C:\>ping 192.168.5.193
+
+Pinging 192.168.5.193 with 32 bytes of data:
+
+Request timed out.
+Reply from 192.168.5.193: bytes=32 time=12ms TTL=254
+Reply from 192.168.5.193: bytes=32 time<1ms TTL=254
+Reply from 192.168.5.193: bytes=32 time<1ms TTL=254
+
+Ping statistics for 192.168.5.193:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 12ms, Average = 4ms
+```
+---
+
+> From PC4 I will ping PC2 in the LAN 2.
+```bash
+Cisco Packet Tracer PC Command Line 1.0
+C:\>ping 192.168.5.1
+
+Pinging 192.168.5.1 with 32 bytes of data:
+
+Request timed out.
+Reply from 192.168.5.1: bytes=32 time<1ms TTL=126
+Reply from 192.168.5.1: bytes=32 time<1ms TTL=126
+Reply from 192.168.5.1: bytes=32 time<1ms TTL=126
+
+Ping statistics for 192.168.5.1:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+
+C:\>
+C:\>
+```
+
+## **Conclusion**:
+The ping test between subnets confirms that subnetting was implemented correctly and validates the static routing configuration on the point-to-point interfaces between routers. Each subnet can successfully reach end devices outside its own broadcast domain. 
+
+Contact me: collinsama343@yahoo.com
+
+💬 If you have any suggestions or contributions, feel free to reach out, I’d love to hear from you. 🛠️ Although this blog is complete for now, I’ll continue updating it with new insights and improvements in the future.
+
