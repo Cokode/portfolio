@@ -122,6 +122,7 @@ Vlan1                  unassigned      YES unset  administratively down down
 
 ```
 
+---
 ### **Step 4: Configure IP-address, NetMask and Default Gateway for endhosts in the LANs** 
 
 ![Network Topology](./images/img5.png)  
@@ -133,6 +134,7 @@ Subnet Mask
 ![Network Topology](./images/img6.png)  
 **Figure 4.0** Configuring the PC2 Default Gateway
 
+---
 
 ### **Step 5: Configure Static Routes to make all the LAN reachable.**
 By configuring static routes on the Routers we will be able to reach the other networks which are not directly connected on the same router. A route is a command/instruction on the routing-table that tells the router where to send packet destined to a remote network. 
