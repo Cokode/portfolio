@@ -1,0 +1,25 @@
+
+## 🧰 **Subnets **
+| Component        | Details                                             |
+|------------------|------------------------------------------------------|
+| **Hypervisor**   | VMware Workstation / Proxmox / VirtualBox            |
+| **Network Tool** | Cisco Packet Tracer / GNS3 / EVE-NG                 |
+| **OS/Appliances**| Windows Server 2019, Ubuntu 22.04, pfSense, etc.     |
+| **Hardware**     | Intel i7, 64GB RAM, SSD 1TB                          |
+
+*(Adjust based on the specific project)*
+
+---
+
+
+## ⚙️ **Configuration Steps**
+1. Step 1 — e.g., Set up the virtual switches and VLANs  
+2. Step 2 — Configure interfaces on Router0  
+3. Step 3 — Verify routing between VLAN 10 and VLAN 20  
+
+*(You can include terminal commands or code blocks like this)*
+
+```bash
+Router(config)# interface g0/0
+Router(config-if)# ip address 192.168.10.1 255.255.255.0
+Router(config-if)# no shutdown
