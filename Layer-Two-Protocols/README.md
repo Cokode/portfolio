@@ -1,6 +1,6 @@
 This lab incoporates several Layer two protocols, namely: VTP protocol, DTP protocol and STP protocol.
 
-Starting initial configuration with VLAN Trunking Protocol. VTP is a Cisco Proprietary Protocol that communicates the definitioni of Virtual Local Area Network. Switches were respectively confgured as sever and clients. VLANs used in this lab are configured in the Switch on VTP server mode, This increases the VTP revision number. This VLAN information are propagated across other switches removing the need to manually configure the rest of the Switch.
+Starting initial configuration with VLAN Trunking Protocol. VTP is a Cisco Proprietary Protocol that communicates the definition of Virtual Local Area Network. Switches were respectively confgured as sever and clients. VLANs used in this lab are configured in the Switch on VTP server mode, This increases the VTP revision number. This VLAN information are propagated across other switches removing the need to manually configure the rest of the Switch.
 
 VPT advertisements are sent only over 802.1q, and ISL trunk ports, therefore all P2P link ports are configured as trunk. the rest of the Switch receives the advertisement and scubcribe to the VTP domain. 
 
