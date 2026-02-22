@@ -1,0 +1,18 @@
+
+#!/bin/bash
+
+
+
+
+echo "Welcome back "${USERNAME}! ## variable may diff per systems, run printevn to check your username/hostname
+echo ""
+
+## echo "Enter public Address"
+read -p "Enter public IPv4 " ipAdd  ## cleaner code
+
+## echo "Enter remote hostname"
+read -p "Enter remote hostname " hostname  ## cleaner code
+
+echo "establishing connection to "$hostname
+
+ssh -i C:/secures/mySSH-new.pem $hostname"@"$ipAdd
