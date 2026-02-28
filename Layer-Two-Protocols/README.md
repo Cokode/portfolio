@@ -9,7 +9,10 @@ Host ports are configured as access ports with each ports subscribing to a VLAN,
 
 ## TABLE OF CONTENT
 - Introducting the Rapid Per-Vlan Spanning-Tree (RSTP) IEEE 802.1w
-
+  - Current Physical Topology
+  - Configuring the switches mode to Rapid PVST+
+  - Configuring VLANS with seperate STP instance
+  - Observing the VLANs STP Topology
 ---
 
 ### INTRODUCTING THE RAPID PER VLAN SPANNING-TREE (RPVST+)
@@ -71,9 +74,9 @@ SW4(config)#spanning-tree vlan 30,40 root primary
 
 ```
 ### Observing the VLANs STP Topology
-The blocking amber links light are no more present as a link/port could serve as an alternating port for one VLAN and forwarding port to another VLAN.
+The blocking amber links light are no more present as a link/port could serve as an alternating port for one VLAN and forwarding port to another VLAN. 
 
-### VLAN 10,20 TOPOLOGY
+### VLAN 10, 20 TOPOLOGY
 For VLAN 10, 20 on SW2 is the root bridge, and all ports becomes designated ports and placed on forwarding state.
 
 ![STP TOPOLOGY FOR VLAN 10, 20](./images/VLAN10-20.png)  
@@ -81,6 +84,12 @@ For VLAN 10, 20 on SW2 is the root bridge, and all ports becomes designated port
 ---
 
 
-![STP TOPOLOGY FOR VLAN 10, 20](./images/VLAN30-40.png)  
+### VLAN 30, 40 TOPOLOGY
+![STP TOPOLOGY FOR VLAN 30, 40](./images/VLAN30-40.png)  
 *Figure 3.0* STP Topology for VLAN 30, 40
 ---
+
+
+### Effect of enabling BPDU filter on an interface
+It is worth knowing that ports with BPDU filter enabled will not send BPDUs out that interface. In this case, `SW1` has BPDU filter enabled on its `fa0/3` interface. In addition, BPDU guard is enabled by default on global configuration mode. The result of these configuration will also casue SW1 to ignore BPDU received on that interface.`(_for testing sake, a switch is connected to the fa0/3 interface_)` Therefore any switch connected on that link will remain a root bridge becuase it will not receive a superior BPDU from other switches.  
+
