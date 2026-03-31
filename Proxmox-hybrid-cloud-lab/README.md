@@ -17,7 +17,7 @@ In this project, the on‑premises site _(Site PVE)_ is my home network, which c
 
 ### SITE-TO-SITE TOPOLOGY 
 **Figure 1.0** - Two physically separated networks
-![geographically dispearsed Networks](/screenshots/topo1.png/)
+![geographically dispearsed Networks](./screenshots/topo1.png/)
 The topology diagram shows two logically and `geographically separated networks`. Under normal circumstances, these networks cannot share resources because private IP addresses are not routable over the public internet.
 
 For enterprises with branches or sites in different locations, this creates a natural barrier to seamless communication and resource sharing. To overcome this limitation and enable secure, reliable access between remote networks, organizations use VPN tunnels. `A Site‑to‑Site VPN allows these isolated networks to operate as if they were part of the same internal infrastructure`. Many enterprises also require employees to connect through a VPN before accessing internal resources, ensuring security while removing the constraints of physical separation.
@@ -38,7 +38,7 @@ On the remote site, WireGuard removes the outer encapsulation, revealing the enc
 
 
 **Figure 2.0** - Data Encapsulation Through the Tunnel
-![geographically dispearsed Networks](/screenshots/topo2.png/)
+![geographically dispearsed Networks](./screenshots/topo2.png/)
 
 In the diagram above **Figure 2.0**, you can visualize how traffic moving between the two networks is encapsulated and de‑encapsulated as it travels through the VPN tunnel. When data leaves its native network, WireGuard wraps the private‑IP packet inside an encrypted outer packet suitable for transmission over the public internet.
 
