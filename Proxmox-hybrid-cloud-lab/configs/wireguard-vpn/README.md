@@ -41,7 +41,7 @@ Both machines follow the same overall configuration process, but for clarity, th
 $ sudo apt install wiregaurd
 ```
 **Figure 1.0** - Installing wireguard
-![console](/screenshots/simg3.png/)
+![console](../../screenshots/simg3.png/)
 
 
 ---
@@ -50,7 +50,7 @@ $ sudo apt install wiregaurd
 $ sudo systemctl status wg-quick@wg0
 ```
 **Figure 2.0** - Confirming installation of wireguard
-![console](/screenshots/simg4.png/)
+![console](../../screenshots/simg4.png/)
 WireGuard is successfully installed, but is currently inactive because it has not been started or enabled yet. After we finish configuring the WireGuard interface file with the tunnel parameters, we will use systemd to start and enable the WireGuard interface so the tunnel comes up automatically.
 
 
@@ -64,7 +64,7 @@ $ sudo ls -l /etc/wireguard/
 ```
 
 **Figure 3.0** - Viewing wireguard file
-![console](/screenshots/simg8.png/)
+![console](../../screenshots/simg8.png/)
 
 ---
 
@@ -77,7 +77,7 @@ $ sudo chmod o-r /etc/wireguard/wg0.conf
 ```
 
 **Figure 4.0** - Changing file permission
-![console](/screenshots/simg9.png/)
+![console](../../screenshots/simg9.png/)
 
 ---
 
@@ -96,7 +96,7 @@ $ sudo chmod g+rw wireguard/pve.key wireguard/pve.pub
 $ lf wireguard/
 ```
 **Figure 5.0** - Viewing created key files
-![console](/screenshots/simg13.png/)
+![console](../../screenshots/simg13.png/)
 
 The command `lf` is an alias for `ls -l1`. (Ajust file permission).
 
@@ -121,7 +121,7 @@ $ sudo chmod o-r aws.key aws.pub
 ```
 
 **Figure 6.0** - Viewing created key files
-![console](/screenshots/simg14.png/)
+![console](../../screenshots/simg14.png/)
 
 
 ---
@@ -133,11 +133,11 @@ $ sudo nano /etc/wireguard/wg0.conf
 ```
 
 For PVE Site: [view](/configs/wireguard-vpn/wg0.conf)
-![console](/screenshots/simg10.png/)
+![console](../../screenshots/simg10.png/)
 
 
 For AWS Site: [view](/configs/wireguard-vpn/wg0.conf)
-![console](/screenshots/simg11.png/)
+![console](../../screenshots/simg11.png/)
 
 ---
 - ### WireGuard Configuration Attribute Breakdown
@@ -160,15 +160,15 @@ For AWS Site: [view](/configs/wireguard-vpn/wg0.conf)
 After configuring the interface, I bring it up using the `sudo wg-quick up wg0` command, which also loads the configuration file. I then verify the tunnel status with `sudo wg show`. Once the interface is confirmed to be running, I enable the WireGuard service so it starts automatically on system boot. Finally, I verify that the tunnel interface has been added to the VM’s network stack.
 
 **Figure 6.0** - Bringing Tunnel interface up
-![console](/screenshots/simg15.png/)
+![console](../../screenshots/simg15.png)
 
 After bringing the interface up as shown in Figure 6.0, you can see that the tunnel is sending keepalive packets but not receiving any traffic. This happens because port forwarding has not yet been configured on my home router. In addition, my remote AWS VPC ACL must be updated to allow inbound and outbound UDP traffic on the configured WireGuard port. Until both the home router and the AWS ACL permit this traffic, the tunnel will remain one‑way.
 
 **Figure 7.0** - Verifying Tunnel interface (PVE Host)
-![console](/screenshots/simg16.png/)
+![console](../../screenshots/simg16.png/)
 
 **Figure 8.0** - Verifying Tunnel interface (AWS VPC Host)
-![console](/screenshots/simg17.png/)
+![console](../../screenshots/simg17.png/)
 
 After reviewing Figure 7.0, we can confirm that the WireGuard tunnel interface has been successfully added to the system’s network stack with the specified IP address and mask `10.10.1.2 /30` and `10.10.1.1 /30`. The next step is to configure port forwarding on the Proxmox‑site home router and update the Network ACLs in the AWS VPC to allow inbound and outbound UDP traffic on the WireGuard port.
 > Once both the router NAT rule and the AWS ACL entries are in place, I will recheck the tunnel traffic to verify that bidirectional communication is established.
@@ -178,9 +178,9 @@ After reviewing Figure 7.0, we can confirm that the WireGuard tunnel interface h
 - ### Configuring Port Forwarding on the Default Gateway at the PVE Site
 
 **Figure 9.0** - Router's Interface
-![console](/screenshots/simg18.png/)
+![console](../../screenshots/simg18.png/)
 **Figure 10.0** - Configuring Port Forwarding and ACLs
-![console](/screenshots/simg19.png/)
+![console](../../screenshots/simg19.png/)
 
 In the router’s Access List, I configured the required port‑forwarding rule. Ideally, it is more secure to restrict the open port to trusted external IP addresses only. However, for this demonstration, the port is open to all external hosts, indicated by the asterisk `*` in the External Host field. Any traffic arriving on this port is forwarded directly to the Proxmox host.
 
@@ -193,12 +193,12 @@ To implement effective firewall rules, it’s important to understand the differ
 If a Network ACL blocks HTTP traffic to a subnet, none of the hosts in that subnet will receive HTTP requests, even if their Security Groups allow it. Conversely, if the ACL permits the traffic but the instance’s Security Group does not, the host will still reject the connection. This layered approach provides flexibility, allowing you to control traffic both at the network perimeter and at the individual host level depending on the services they expose.
 
 **Figure 11.0** - Adding an Inbound Security Group Rule
-![console](/screenshots/simg20.png/)
+![console](../../screenshots/simg20.png/)
 
 > At the instance‑interface level, I added an inbound Security Group rule allowing UDP traffic on port 51000. This ensures that the WireGuard packets forwarded from the home router can reach the AWS instance once they pass through the VPC’s Network ACLs.
 
 **Figure 11.0** - Adding an Inbound ACL Rule
-![console](/screenshots/simg21.png/)
+![console](../../screenshots/simg21.png/)
 
 At the subnet and gateway level, I added an inbound Network ACL rule allowing UDP traffic on port 51000. By default, outbound traffic is permitted unless explicitly denied, so no additional outbound rule was required. This ACL entry ensures that WireGuard packets can enter the subnet before being evaluated by the instance‑level Security Group.
 
