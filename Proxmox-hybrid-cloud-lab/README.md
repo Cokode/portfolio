@@ -3,17 +3,13 @@
  
 
 ## TABLE OF CONTENTS
--  [Project Overview](#project-overview)
 -  [Site-to-Site Topology](#site-to-site-topology)
+-  [Project Overview](#project-overview)
 -  [Choosing a VPN](#choosing-a-vpn)
      -  [How wireguard VPN works](#how-wireguard-vpn-works)
     -   [Step‑by‑Step Wireguard Installation and Implementation](#stepbystep-wireguard-installation-and-implementation)
-    -   [Testing tunnel connectivity between sites](#testing-tunnel-connectivity-between-sites) 
-###  PROJECT OVERVIEW.
+    -   [Testing Tunnel connectivity between sites](#testing-tunnel-connectivity-between-sites) 
 
-This is a `Site‑to‑Site` VPN tunnel project to connect an `on‑premises` infrastructure to a `Virtual Private Cloud` _(AWS VPC)_. This allows both geographically separated networks to operate as one, with the added benefits of secure data exchange and shared access to resources.
-
-In this project, the on‑premises site _(Site PVE)_ is my home network, which consists of a single LAN. The VPC environment _(Site AWS)_ contains six LANs, but for this specific implementation, the VPN tunnel only connects one designated host in one of the VPC LAN to a host _(Proxmox VM)_ in my Home network _(Site PVE)_.
 
 ### SITE-TO-SITE TOPOLOGY 
 **Figure 1.0** - Two physically separated networks
@@ -21,6 +17,12 @@ In this project, the on‑premises site _(Site PVE)_ is my home network, which c
 The topology diagram shows two logically and `geographically separated networks`. Under normal circumstances, these networks cannot share resources because private IP addresses are not routable over the public internet.
 
 For enterprises with branches or sites in different locations, this creates a natural barrier to seamless communication and resource sharing. To overcome this limitation and enable secure, reliable access between remote networks, organizations use VPN tunnels. `A Site‑to‑Site VPN allows these isolated networks to operate as if they were part of the same internal infrastructure`. Many enterprises also require employees to connect through a VPN before accessing internal resources, ensuring security while removing the constraints of physical separation.
+
+###  PROJECT OVERVIEW.
+
+This is a `Site‑to‑Site` VPN tunnel project to connect an `on‑premises` infrastructure to a `Virtual Private Cloud` _(AWS VPC)_. This allows both geographically separated networks to operate as one, with the added benefits of secure data exchange and shared access to resources.
+
+In this project, the on‑premises site _(Site PVE)_ is my home network, which consists of a single LAN. The VPC environment _(Site AWS)_ contains six LANs, but for this specific implementation, the VPN tunnel only connects one designated host in one of the VPC LAN to a host _(Proxmox VM)_ in my Home network _(Site PVE)_.
 
 ### CHOOSING A VPN
 For this project, I chose to use the [`WireGuard VPN`](https://www.wireguard.com/). It is an open‑source tunneling protocol designed for simplicity, speed, and strong security. It supports Site‑to‑Site VPN configurations and is known for being lightweight because it uses minimal overhead and relies on the UDP transport protocol for fast data transmission.
@@ -46,6 +48,6 @@ Upon arrival at the remote site, that outer layer is removed, the encrypted payl
 
 - #### Step‑by‑Step Wireguard Installation and Implementation. 
 
-> You can follow the full step‑by‑step installation and configuration of WireGuard on both sites in the dedicated implementation guide [here](./configs/wireguard-vpn/README.md). This includes generating keys, configuring interfaces, defining AllowedIPs, and validating tunnel connectivity. 
+> You can follow the full step‑by‑step installation and configuration of WireGuard on both sites in the dedicated implementation guide [here](./configs/wireguard-vpn/README.md). This includes generating keys, configuring interfaces, defining AllowedIPs, configuring ACLs, Port forwarding, and validating tunnel connectivity. 
 
 - #### Testing tunnel connectivity between sites
