@@ -70,7 +70,7 @@ To complete the implementation, I tested WireGuard connectivity between both sit
  ![geographically dispearsed Networks](./screenshots/23.jpg/)
 
 
-**Figure 3.0** - (Video) Demo Testing The Tunnel
+**Figure 4.0** - (Video) Demo Testing The Tunnel
 >
 [![Watch the video](https://img.youtube.com/vi/1QjziejtaFo/0.jpg)](https://www.youtube.com/watch?v=1QjziejtaFo)
 
