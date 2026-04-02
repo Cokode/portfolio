@@ -9,6 +9,8 @@
      -  [How wireguard VPN works](#how-wireguard-vpn-works)
     -   [Step‑by‑Step Wireguard Installation and Implementation](#stepbystep-wireguard-installation-and-implementation)
     -   [Testing Tunnel connectivity between sites](#testing-tunnel-connectivity-between-sites) 
+-   [What Next](#what-next)
+-   [Reources](#resources-used)
 
 
 ### SITE-TO-SITE TOPOLOGY 
@@ -51,3 +53,35 @@ Upon arrival at the remote site, that outer layer is removed, the encrypted payl
 > You can follow the full step‑by‑step installation and configuration of WireGuard on both sites in the dedicated implementation guide [here](./configs/wireguard-vpn/README.md). This includes generating keys, configuring interfaces, defining AllowedIPs, configuring ACLs, Port forwarding, and validating tunnel connectivity. 
 
 - #### Testing tunnel connectivity between sites
+To complete the implementation, I tested WireGuard connectivity between both sites. The most reliable way to confirm this is by pinging a host on the Proxmox site using its private IP address. Receiving echo replies from the ping verifies that traffic is now flowing in both directions and that the two sites are successfully connected through the WireGuard tunnel.
+
+
+**Figure 3.0** - Demo Testing The Tunnel
+[![Watch the video](https://img.youtube.com/vi/1QjziejtaFo/0.jpg)](https://www.youtube.com/watch?v=1QjziejtaFo)
+
+- ### What Next
+With the experience gained from this project, I plan to continue expanding my home‑lab environment by deploying and configuring pfSense on my home LAN. This will allow me to host and manage multiple resources across different subnets and further strengthen my understanding of network segmentation and firewall management. [Jump back up](#table-of-contents)
+
+> Date Completed: 2nd April, 2026 
+---
+
+-   ### Resources Used
+About WireGuard
+https://www.wireguard.com/
+
+
+wireguard installation
+https://www.wireguard.com/install/
+
+Others:
+> 
+https://ubuntu.com/server/docs/how-to/wireguard-vpn/site-to-site/#wireguard-vpn-site-to-site
+
+https://www.geeksforgeeks.org/git/how-to-embed-a-video-into-github-readme-md/
+
+https://ubuntu.com/server/docs/explanation/intro-to/wireguard-vpn/
+
+https://www.wireguard.com/netns/
+
+https://www.wireguard.com/quickstart/
+https://www.geeksforgeeks.org/linux-unix/iptables-command-in-linux-with-examples/
