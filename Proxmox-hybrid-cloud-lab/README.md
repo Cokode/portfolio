@@ -56,7 +56,7 @@ Upon arrival at the remote site, that outer layer is removed, the encrypted payl
 To complete the implementation, I tested WireGuard connectivity between both sites. The most reliable way to confirm this is by pinging a host on the Proxmox site using its private IP address. Receiving echo replies from the ping verifies that traffic is now flowing in both directions and that the two sites are successfully connected through the WireGuard tunnel.
 
 
-**Figure 3.0** - Demo Testing The Tunnel
+**Figure 3.0** - Vidoe Demo Testing The Tunnel
 >
 [![Watch the video](https://img.youtube.com/vi/1QjziejtaFo/0.jpg)](https://www.youtube.com/watch?v=1QjziejtaFo)
 
