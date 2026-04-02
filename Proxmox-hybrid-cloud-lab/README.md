@@ -57,10 +57,13 @@ To complete the implementation, I tested WireGuard connectivity between both sit
 
 
 **Figure 3.0** - Demo Testing The Tunnel
+>
 [![Watch the video](https://img.youtube.com/vi/1QjziejtaFo/0.jpg)](https://www.youtube.com/watch?v=1QjziejtaFo)
 
 - ### What Next
+>
 With the experience gained from this project, I plan to continue expanding my home‑lab environment by deploying and configuring pfSense on my home LAN. This will allow me to host and manage multiple resources across different subnets and further strengthen my understanding of network segmentation and firewall management. [Jump back up](#table-of-contents)
+
 
 > Date Completed: 2nd April, 2026 
 ---
