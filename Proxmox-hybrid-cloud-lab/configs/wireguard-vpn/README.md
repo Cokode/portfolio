@@ -13,9 +13,13 @@
     -   [Configure and View Private and Public Encryption Keys for the AWS Site](#configure-and-view-private-and-public-encryption-keys-for-the-aws-site)
     -   [Opening and Configuring the WireGuard Configuration File](#opening-and-configuring-the-wireguard-configuration-file)
     -   [WireGuard Configuration Attribute Breakdown](#wireguard-configuration-attribute-breakdown)
-    -   [Bringing the Tunnel Interface Up, Checking Interface Status, and Enabling Auto‑Start with Systemd](#bringing-the-tunnel-interface-up-checking-interface-status-and-enabling-autostart-with-systemd)
+    -   [Bringing the Tunnel Interface Up Enabling Auto‑Start with Systemd](#bringing-the-tunnel-interface-up-checking-interface-status-and-enabling-autostart-with-systemd)
     -   [Configuring Port Forwarding on the Default Gateway at the PVE Site](#configuring-port-forwarding-on-the-default-gateway-at-the-pve-site)
-    -   []
+    -   [Configuring Port Forwarding on the Default Gateway at the PVE Site](#configuring-port-forwarding-on-the-default-gateway-at-the-pve-site)
+    -   [Configuring ACLs And Security gruop](#configuring-acls-and-security-gruop)
+    -   [Verifying WireGuard Interface Traffic](#verifying-wireguard-interface-traffic)
+    -   [The Ping Test Between Sites](../../README.md)
+
 
 
 
@@ -186,6 +190,8 @@ In the router’s Access List, I configured the required port‑forwarding rule.
 
 The next step is to configure the Network ACLs and Security Groups on the AWS site to allow inbound and outbound UDP traffic on the WireGuard port. Once these rules are applied, I will verify the tunnel traffic again.
 
+---
+
 - ### Configuring ACLs And Security gruop
 
 To implement effective firewall rules, it’s important to understand the difference between Network ACLs and Security Groups. ACLs operate at the subnet level, functioning as stateless firewall rules on the network boundary. Security Groups, on the other hand, act as stateful firewalls applied directly to the instance or its network interface.
@@ -200,7 +206,24 @@ If a Network ACL blocks HTTP traffic to a subnet, none of the hosts in that subn
 **Figure 11.0** - Adding an Inbound ACL Rule
 ![console](../../screenshots/simg21.png/)
 
-At the subnet and gateway level, I added an inbound Network ACL rule allowing UDP traffic on port 51000. By default, outbound traffic is permitted unless explicitly denied, so no additional outbound rule was required. This ACL entry ensures that WireGuard packets can enter the subnet before being evaluated by the instance‑level Security Group.
+At the subnet and gateway level, I added an inbound Network ACL rule allowing UDP traffic on port `51000`. By default, outbound traffic is permitted unless explicitly denied, so no additional outbound rule was required. This ACL entry ensures that WireGuard packets can enter the subnet before being evaluated by the instance‑level Security Group.
 
--   ### Testing tunnell connectivity betweeen sites
 
+---
+
+- ### Verifying WireGuard Interface Traffic
+One of the first ways to confirm connectivity between both sites is by checking the keepalive traffic on the WireGuard interface. Earlier in the setup, the interface was able to send keepalive packets but could not receive any. This was expected because port forwarding had not yet been configured on the PVE‑site router, and the AWS‑side Network ACLs and Security Groups were not allowing inbound UDP traffic on the WireGuard port. Once these rules were properly configured, the interface began receiving packets, confirming that bidirectional communication was established.
+
+**Figure 12.0** - Traffic on wireguard interface (PVE Site)
+![console](../../screenshots/simg22.png/)
+
+**Figure 13.0** - Traffic on wireguard interface (AWS Site)
+![console](../../screenshots/simg23.png/)
+
+
+> As show in figure 12 and 13, I highlighted the key areas that confirm the successful handshake and connectivity between both sites. The WireGuard interfaces are now exchanging packets, indicating that the tunnel is fully operational.
+
+---
+
+---
+[`Go back to where you came >`](../../README.md)
