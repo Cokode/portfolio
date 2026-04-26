@@ -1,0 +1,2 @@
+[switches]
+iosxe ansible_host=devnetsandboxiosxec9k.cisco.com
