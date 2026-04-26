@@ -1,0 +1,12 @@
+- name: Create VLAN using RESTCONF
+  hosts: switches
+  gather_facts: no
+
+  tasks:
+    - name: Create VLAN 40
+      ansible.netcommon.restconf_config:
+        path: Cisco-IOS-XE-native:native/vlan
+        content:
+          vlan:
+            - id: 40
+              name: ANSIBLE_VLAN
