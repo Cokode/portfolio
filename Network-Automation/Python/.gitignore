@@ -1,0 +1,10 @@
+notes.md
+play.py
+
+info.py
+.venv/
+__pycache__/
+*.pyc
+
+.env
+codes.txt
