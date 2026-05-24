@@ -3,10 +3,13 @@
 # **Network Automation – RESTCONF Interface Viewer**
 
 This is a small but practical network‑automation project I built to learn how to interact with Cisco IOS‑XE devices using **RESTCONF** and **Python**.  
+
 The script connects to a Cisco sandbox router, pulls interface information in **YANG‑modeled JSON**, and prints only the enabled interfaces in a clean, readable format.
 
+```
 It’s a simple project, but it shows the core idea behind network automation:  
 **use APIs instead of CLI to collect structured data from network devices.**
+```
 
 ---
 
