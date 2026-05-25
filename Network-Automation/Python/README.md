@@ -35,6 +35,9 @@ For each interface, it displays:
 
 This makes it easy to quickly see which interfaces are active and how they’re configured.
 
+## **Running the python script** 
+![A get request demo](./image.png)  
+
 ---
 
 ## **Project Structure**
