@@ -18,6 +18,9 @@ Both sites are single-homed to their respective ISPs and exchange routes through
 
 ## Network Topology
 
+![BGP Configuration](./images/7.png)
+
+
 ### Main Site VLANs
 
 | VLAN    | Network         |
