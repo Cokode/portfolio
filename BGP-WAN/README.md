@@ -37,6 +37,7 @@ Both sites are single-homed to their respective ISPs and exchange routes through
 ---
 
 ## Technologies Used
+HSRP was recently added to the topology to support gateway Failover for both VLANs. 
 
 * BGP (Border Gateway Protocol)
 * OSPF (Open Shortest Path First)
@@ -46,6 +47,7 @@ Both sites are single-homed to their respective ISPs and exchange routes through
 * VLAN Segmentation
 * NTP
 * DNS
+* `HSRP`+ 
 
 ---
 
@@ -53,7 +55,13 @@ Both sites are single-homed to their respective ISPs and exchange routes through
 
 BGP is used to exchange routes between the Main Site and Branch Site over two redundant WAN links.
 
-![BGP Configuration](./images/1.png)
+`Updated changes have beren highlited`
+![BGP Configuration](./images/11.png)
+
+- Redistribute connected: BGP will redistribute the connected subnet, in this case, there is no need to run OSPF on these links. 
+
+- Redistribute-internal: BGP will redistribute OSPF routes
+- network**: Adds the network to BGP
 
 ### Key Benefits
 
@@ -68,7 +76,13 @@ BGP is used to exchange routes between the Main Site and Branch Site over two re
 
 OSPF is used as the Interior Gateway Protocol (IGP) within each site.
 
+**Changes**: `WAN networks have been removed from OSPF since it is redistributed by BGP`.
+
+`old image`
 ![OSPF Configuration](./images/2.png)
+
+`updated image`
+![OSPF Configuration](./images/12.png)
 
 ### Route Redistribution
 
@@ -137,9 +151,19 @@ Once the ISP connection is restored, routing automatically reverts to the prefer
 
 # Route Verification
 
-The routing table confirms successful BGP route exchange between both sites.
+The routing table on DSW-A2 confirms successful route exchange between both sites. As shown in the updated image, the remote networks are learned through OSPF External Type 2 (E2) routes, indicating that they have been redistributed from BGP into the OSPF domain.
 
+In the previous configuration, these routes were only learned by the edge router and were not propagated to devices within the LAN. This issue was caused by a missing BGP redistribution command, which has since been corrected and updated in the BGP Configuration section.
+
+This verification confirms that remote site routes are now being successfully distributed throughout the internal OSPF network, providing full end-to-end reachability between both sites.
+
+`old route on Edge-A `
 ![BGP Learned Routes](./images/6.png)
+
+
+`Fully redistributed route on DSW-A1 `
+![BGP Learned Routes](./images/10.png)
+
 
 Remote site networks are dynamically learned through BGP and redistributed internally through OSPF.
 
@@ -161,6 +185,14 @@ The following supporting services were configured:
 Public DNS servers from Google and Cloudflare were used for name resolution.
 
 ---
+
+# Connectivity Test
+
+* - Main-Branch to Remote Branch
+![BGP Learned Routes](./images/13.png)
+
+* - Internet connectivity test
+![BGP Learned Routes](./images/14.png)
 
 # Key Skills Demonstrated
 
